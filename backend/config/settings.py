@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+from django.templatetags.static import static
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'unfold',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -68,7 +70,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -88,12 +90,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'thuctap_db',
-        'USER': 'postgres',
-        'PASSWORD': 'Nhochuy900',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'thuctappython',
+        'USER': 'root',
+        'PASSWORD': 'huydev',
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': '3306',
     }
 }
 
@@ -133,6 +135,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 # CORS Configuration
 CORS_ALLOW_ALL_ORIGINS = True
@@ -155,3 +160,72 @@ SPECTACULAR_SETTINGS = {
 # Media files configuration
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# Unfold Luxury Configuration
+UNFOLD = {
+    "SITE_TITLE": "Mini Market Luxury",
+    "SITE_HEADER": "MINI MARKET ADMIN",
+    "SITE_SYMBOL": "diamond",
+    "SHOW_HISTORY": True,
+    "SHOW_VIEW_ON_SITE": True,
+    "COLORS": {
+        "primary": {
+            "50": "var(--color-primary-50)",
+            "100": "var(--color-primary-100)",
+            "200": "var(--color-primary-200)",
+            "300": "var(--color-primary-300)",
+            "400": "var(--color-primary-400)",
+            "500": "var(--color-primary-500)",
+            "600": "var(--color-primary-600)",
+            "700": "var(--color-primary-700)",
+            "800": "var(--color-primary-800)",
+            "900": "var(--color-primary-900)",
+            "950": "var(--color-primary-950)",
+        },
+    },
+    "STYLES": [
+        lambda request: static("css/admin_themes.css"),
+    ],
+    "SCRIPTS": [
+        lambda request: static("js/theme_switcher.js"),
+    ],
+    "DASHBOARD_CALLBACK": "core.dashboard.dashboard_callback",
+    "SIDEBAR": {
+        "show_search": True,
+        "show_all_applications": False,
+        "navigation": [
+            {
+                "title": "Quản lý Cửa hàng",
+                "separator": True,
+                "items": [
+                    {
+                        "title": "Sản phẩm",
+                        "link": "/admin/products/product/",
+                    },
+                    {
+                        "title": "Danh mục",
+                        "link": "/admin/categories/category/",
+                    },
+                    {
+                        "title": "Đơn hàng",
+                        "link": "/admin/orders/order/",
+                    },
+                ],
+            },
+            {
+                "title": "Người dùng & Bảo mật",
+                "separator": True,
+                "items": [
+                    {
+                        "title": "Danh sách người dùng",
+                        "link": "/admin/users/user/",
+                    },
+                    {
+                        "title": "Phân quyền (Nhóm)",
+                        "link": "/admin/auth/group/",
+                    },
+                ],
+            },
+        ],
+    },
+}
