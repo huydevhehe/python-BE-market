@@ -1,9 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ShoppingBag, User, LogOut, Search, Menu, X } from 'lucide-react';
+import { ShoppingBag, User, LogOut, Search, Menu, X, Wallet } from 'lucide-react';
 import { AuthContext } from '../../context/AuthContext';
 import { CartContext } from '../../context/CartContext';
 import Button from '../ui/Button';
+import { formatCurrency } from '../../utils/format';
 
 const Header = () => {
     const { user, logout } = useContext(AuthContext);
@@ -74,11 +75,29 @@ const Header = () => {
                         <div className="h-6 w-[1px] bg-slate-200 mx-2 hidden sm:block"></div>
 
                         {user ? (
-                            <div className="flex items-center space-x-4">
-                                <div className="hidden sm:flex flex-col items-end">
-                                    <span className="text-[10px] text-slate-400 font-bold uppercase leading-none">Xin chào,</span>
-                                    <span className="text-xs font-black text-slate-800">{user.username}</span>
-                                </div>
+                            <div className="flex items-center space-x-5">
+                                <Link to="/profile" className="hidden sm:flex items-center space-x-3 bg-slate-50/80 hover:bg-indigo-50 px-4 py-2 rounded-2xl border border-slate-100 hover:border-indigo-100 transition-all group">
+                                    <div className="flex flex-col items-end">
+                                        <span className="text-[9px] text-slate-400 font-black uppercase leading-none tracking-tighter">Số dư ví</span>
+                                        <span className="text-xs font-black text-indigo-600">
+                                            {formatCurrency(user.wallet?.balance || 0)}
+                                        </span>
+                                    </div>
+                                    <div className="w-8 h-8 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-100 group-hover:scale-110 transition-transform">
+                                        <Wallet size={14} className="text-white" />
+                                    </div>
+                                </Link>
+
+                                <Link to="/profile" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
+                                    <div className="hidden lg:flex flex-col items-end">
+                                        <span className="text-[10px] text-slate-400 font-bold uppercase leading-none">Tài khoản</span>
+                                        <span className="text-xs font-black text-slate-800">{user.username}</span>
+                                    </div>
+                                    <div className="w-10 h-10 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-400">
+                                        <User size={20} />
+                                    </div>
+                                </Link>
+
                                 <button onClick={logout} className="p-3 bg-slate-50 text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-2xl transition-all shadow-sm">
                                     <LogOut size={20} />
                                 </button>

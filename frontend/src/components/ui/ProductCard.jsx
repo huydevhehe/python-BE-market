@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { ShoppingCart, Heart } from 'lucide-react';
 import Badge from './Badge';
 import { CartContext } from '../../context/CartContext';
+import { formatCurrency } from '../../utils/format';
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useContext(CartContext);
@@ -44,7 +45,7 @@ const ProductCard = ({ product }) => {
         <div className="flex items-center justify-between pt-2 border-t border-slate-50">
           <div className="flex flex-col">
             <span className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">Giá bán</span>
-            <span className="text-2xl font-extrabold text-slate-900 tracking-tight">${product.price}</span>
+            <span className="text-2xl font-extrabold text-slate-900 tracking-tight">{formatCurrency(product.price)}</span>
           </div>
           <button 
             onClick={() => addToCart(product)}

@@ -1,7 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from dj_wallet.mixins import WalletMixin
 
-class User(AbstractUser):
+class User(AbstractUser, WalletMixin):
     ROLE_CHOICES = (
         ('ADMIN', 'Admin'),
         ('USER', 'User'),

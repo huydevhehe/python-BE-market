@@ -1,0 +1,58 @@
+{% load i18n static unfold %}
+
+<div class="flex flex-row gap-4 items-center ml-auto">
+    <!-- Luxury Layout: Multi-Theme Switcher (Standard Template-based with Alpine.js) -->
+    <div 
+        x-data="{ 
+            activeTheme: localStorage.getItem('unfold-luxury-theme') || 'indigo',
+            switchTheme(t) {
+                this.activeTheme = t;
+                document.documentElement.setAttribute('data-theme', t);
+                localStorage.setItem('unfold-luxury-theme', t);
+                location.reload(); 
+            }
+        }"
+        class="flex items-center gap-x-2 px-3 py-1.5 bg-base-100 dark:bg-base-700/50 rounded-full border border-base-200 dark:border-base-700 shadow-sm"
+    >
+        <button 
+            type="button"
+            title="Midnight Indigo"
+            @click="switchTheme('indigo')"
+            :class="activeTheme === 'indigo' ? 'scale-125 ring-2 ring-indigo-500 ring-offset-2' : ''"
+            class="w-4 h-4 rounded-full bg-[#6366f1] border-2 border-white dark:border-base-900 transition-all hover:scale-125 shadow-sm"
+        ></button>
+        <button 
+            type="button"
+            title="Royal Gold"
+            @click="switchTheme('gold')"
+            :class="activeTheme === 'gold' ? 'scale-125 ring-2 ring-yellow-500 ring-offset-2' : ''"
+            class="w-4 h-4 rounded-full bg-[#eab308] border-2 border-white dark:border-base-900 transition-all hover:scale-125 shadow-sm"
+        ></button>
+        <button 
+            type="button"
+            title="Emerald Forest"
+            @click="switchTheme('emerald')"
+            :class="activeTheme === 'emerald' ? 'scale-125 ring-2 ring-emerald-500 ring-offset-2' : ''"
+            class="w-4 h-4 rounded-full bg-[#10b981] border-2 border-white dark:border-base-900 transition-all hover:scale-125 shadow-sm"
+        ></button>
+        <button 
+            type="button"
+            title="Deep Crimson"
+            @click="switchTheme('crimson')"
+            :class="activeTheme === 'crimson' ? 'scale-125 ring-2 ring-rose-500 ring-offset-2' : ''"
+            class="w-4 h-4 rounded-full bg-[#f43f5e] border-2 border-white dark:border-base-900 transition-all hover:scale-125 shadow-sm"
+        ></button>
+    </div>
+
+    <div class="h-6 w-px bg-base-200 dark:bg-base-700 mx-1"></div>
+
+    {% if environment %}
+        {% include "unfold/helpers/label.html" with text=environment.0 type=environment.1 %}
+    {% endif %}
+
+    {% action_list %}
+
+    {% if nav_global_side %}
+        {{ nav_global_side }}
+    {% endif %}
+</div>
