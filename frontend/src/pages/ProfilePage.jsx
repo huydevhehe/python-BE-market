@@ -96,7 +96,7 @@ const ProfilePage = () => {
               <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl"></div>
               
               <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-8">
-                <div>
+                <div className="flex-1">
                   <div className="flex items-center space-x-3 mb-4">
                     <div className="p-2 bg-white/10 rounded-lg backdrop-blur-md">
                       <Wallet className="w-5 h-5 text-indigo-300" />
@@ -104,11 +104,28 @@ const ProfilePage = () => {
                     <span className="text-xs font-black uppercase tracking-[0.2em] text-indigo-200/60">Tài khoản ví Luxury</span>
                   </div>
                   <div className="flex items-baseline space-x-2">
-                    <span className="text-5xl font-black tracking-tighter">
+                    <span className="text-5xl font-black tracking-tighter text-white">
                       {loading ? '...' : formatCurrency(userData?.wallet?.balance || 0).replace('$', '')}
                     </span>
                     <span className="text-xl font-bold text-indigo-300/60">USD</span>
                   </div>
+                </div>
+
+                <div className="h-16 w-px bg-white/10 hidden md:block"></div>
+
+                <div className="flex-1">
+                    <div className="flex items-center space-x-3 mb-4">
+                        <div className="p-2 bg-amber-500/20 rounded-lg backdrop-blur-md">
+                            <Sparkles className="w-5 h-5 text-amber-400" />
+                        </div>
+                        <span className="text-xs font-black uppercase tracking-[0.2em] text-amber-200/60">Điểm thưởng Luxury</span>
+                    </div>
+                    <div className="flex items-baseline space-x-2">
+                        <span className="text-5xl font-black tracking-tighter text-amber-400">
+                            {loading ? '...' : (userData?.reward_points || 0).toLocaleString()}
+                        </span>
+                        <span className="text-xl font-bold text-amber-400/40">PTS</span>
+                    </div>
                 </div>
 
                 <div className="flex gap-4">

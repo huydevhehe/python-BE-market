@@ -77,13 +77,19 @@ const Header = () => {
                         {user ? (
                             <div className="flex items-center space-x-5">
                                 <Link to="/profile" className="hidden sm:flex items-center space-x-3 bg-slate-50/80 hover:bg-indigo-50 px-4 py-2 rounded-2xl border border-slate-100 hover:border-indigo-100 transition-all group">
-                                    <div className="flex flex-col items-end">
+                                    <div className="flex flex-col items-end border-r border-slate-200 pr-3 mr-1">
                                         <span className="text-[9px] text-slate-400 font-black uppercase leading-none tracking-tighter">Số dư ví</span>
                                         <span className="text-xs font-black text-indigo-600">
                                             {formatCurrency(user.wallet?.balance || 0)}
                                         </span>
                                     </div>
-                                    <div className="w-8 h-8 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-100 group-hover:scale-110 transition-transform">
+                                    <div className="flex flex-col items-end">
+                                        <span className="text-[9px] text-amber-500 font-black uppercase leading-none tracking-tighter">Điểm</span>
+                                        <span className="text-xs font-black text-amber-600">
+                                            {(user.reward_points || 0).toLocaleString()} PTS
+                                        </span>
+                                    </div>
+                                    <div className="w-8 h-8 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-100 group-hover:scale-110 transition-transform ml-1">
                                         <Wallet size={14} className="text-white" />
                                     </div>
                                 </Link>
