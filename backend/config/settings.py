@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'categories',
     'products',
     'orders',
+    'wallets',
     'dj_wallet',
 ]
 

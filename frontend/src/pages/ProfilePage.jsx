@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import api from '../api/axios';
-import { Wallet, ArrowUpCircle, ArrowDownCircle, Clock, User, LogOut, ChevronRight } from 'lucide-react';
+import { Wallet, ArrowUpCircle, ArrowDownCircle, Clock, User, LogOut, ChevronRight, Sparkles } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { formatCurrency } from '../utils/format';
 
@@ -15,7 +15,7 @@ const ProfilePage = () => {
       try {
         const [profileRes, transRes] = await Promise.all([
           api.get('users/profile/'),
-          api.get('users/profile/transactions/')
+          api.get('wallets/history/')
         ]);
         setUserData(profileRes.data);
         setTransactions(transRes.data);

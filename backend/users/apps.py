@@ -4,6 +4,3 @@ class UsersConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'users'
     verbose_name = " " # Để một khoảng trắng để Django không tự hiển thị tên App ra sidebar
-
-    def ready(self):
-        import users.signals

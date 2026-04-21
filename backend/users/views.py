@@ -1,24 +1,18 @@
 from rest_framework import generics, permissions
-from .serializers import UserSerializer, TransactionSerializer
+from drf_spectacular.utils import extend_schema
+from .serializers import UserSerializer, UserRegisterSerializer
 from .models import User
-from dj_wallet.models import Transaction
 
-class RegisterView(generics.CreateAPIView):
+@extend_schema(tags=['Auth'], summary="Đăng ký tài khoản mới")
+class UserRegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = UserRegisterSerializer
     permission_classes = (permissions.AllowAny,)
 
+@extend_schema(tags=['Auth'], summary="Xem hồ sơ người dùng")
 class UserProfileView(generics.RetrieveUpdateAPIView):
     serializer_class = UserSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
     def get_object(self):
         return self.request.user
-
-class UserTransactionsView(generics.ListAPIView):
-    serializer_class = TransactionSerializer
-    permission_classes = (permissions.IsAuthenticated,)
-
-    def get_queryset(self):
-        # Lấy tất cả giao dịch thuộc về ví của người dùng hiện tại
-        return Transaction.objects.filter(wallet=self.request.user.wallet).order_by('-created_at')
